@@ -1,0 +1,11 @@
+[package]
+name = "yo_blasketball--"
+version = "0.1.0"
+authors = ["Christopher Quion <chrischrisquion@gmail.com>"]
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+enum-map = "*"
+enum-map-derive = "*"
