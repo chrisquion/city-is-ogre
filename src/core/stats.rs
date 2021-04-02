@@ -21,6 +21,7 @@ pub struct Modifier {
     target_stats: Vec<Stat>
     */
 }
+
 #[derive(Debug, PartialEq, Eq, Hash)]    
 enum StatType {
     Finesse,
