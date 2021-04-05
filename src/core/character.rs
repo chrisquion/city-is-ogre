@@ -1,7 +1,8 @@
 extern crate enum_map;
 use crate::inventory::Inventory;
 use crate::core::stats;
-use crate::core::background;
+use crate::core::stats::Stats;
+use crate::core::background::Background;
 use std::fmt; 
 
 
@@ -10,7 +11,7 @@ use std::fmt;
 #[derive(Debug)]
 pub struct Character {
     pub alias: String,
-    pub background: background::Background,
+    pub background: Background,
     pub stats: stats::Stats,
     pub inventory: Inventory,
     pub equipment: Inventory,
@@ -27,9 +28,19 @@ struct State {
     active_modifiers: Vec<stats::Modifier>,
 }
 
-struct Trait {
+struct Quirk {
     name: String,
     modifiers: Vec<stats::Modifier>,
+}
+
+pub trait CanTalk {
+    fn say_hi(&self);
+}
+
+impl CanTalk for Character {
+    fn say_hi(&self) {
+        println!("Hi, I'm {} from {}", self.alias, self.background);
+    }
 }
 
 #[derive(Debug)]
@@ -38,3 +49,13 @@ enum ModType {
     Mental,
 }
 
+pub fn will_into_existence(alias: String, background: Background, stats: Stats, inventory: Inventory, equipment: Inventory, active: bool) -> Character {
+    Character {
+        alias,
+        background,
+        stats,
+        inventory,
+        equipment,
+        active
+    }
+}

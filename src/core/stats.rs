@@ -8,7 +8,7 @@ pub struct Stats { // there are 9 stats // idea: use enum to index into array ra
 }
 #[derive(Debug)]
 pub struct Stat {
-    sType: StatType,
+    s_type: StatType,
     base_value: i32,
     current_value: i32,
 }
