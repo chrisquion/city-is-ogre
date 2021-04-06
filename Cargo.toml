@@ -9,3 +9,4 @@ edition = "2018"
 [dependencies]
 enum-map = "*"
 enum-map-derive = "*"
+legion = "0.4.0"

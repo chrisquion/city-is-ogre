@@ -2,28 +2,38 @@ mod core;
 mod inventory;
 use inventory::Inventory;
 use crate::core::background;
-use crate::core::stats::Stats;
-use crate::core::character;
+use crate::core::stats::{Stats};
+use crate::core::character::{Character, Quirk};
 use crate::core::character::CanTalk;
 
-fn main() {
-    println!("Choose a culture:");
-    println!("Choose a heritage:");
-    let test_culture = background::Heritage::new(String::from("Steep Steppes"), Vec::new());
-    let test_heritage = background::Heritage::new(String::from("Sunburnt"), Vec::new());
-    let test_bg = background::Background::new(test_culture, test_heritage, 329524);
-    let test_stats = Stats::new();
-    let test_inventory = Inventory::new();
-    let test_equipment = Inventory::new();
+use legion::*;
 
-
-    let hennesy_james = test_character_creation(String::from("Hennesy James"));
-    let hennesy_james2 = test_character_creation(String::from("Hennesy James2"));
-    hennesy_james.say_hi();
+// a component is any type that is 'static, sized, send and sync
+#[derive(Clone, Copy, Debug, PartialEq)]
+struct Position {
+    x: f32,
+    y: f32,
 }
 
-pub fn test_character_creation(alias: String) -> character::Character{
-  
-    let soul = character::will_into_existence(alias, test_bg, test_stats, test_inventory, test_equipment, false);
-    soul
+#[derive(Clone, Copy, Debug, PartialEq)]
+struct Velocity {
+    dx: f32,
+    dy: f32,
+}
+
+fn main() {
+    let mut allBackgrounds: Vec<Quirk> = Vec::new();
+    allBackgrounds.push(Quirk::new(String::from("EagleEye")));
+    allBackgrounds.push(Quirk::new(String::from("FastHands")));
+    let mut world = World::default();
+
+    // push a component tuple into the world to create an entity
+    let entity: Entity = world.push((Position { x: 0.0, y: 0.0 }, Velocity { dx: 0.0, dy: 0.0 }));
+
+    // or extend via an IntoIterator of tuples to add many at once (this is faster)
+    let entities: &[Entity] = world.extend(vec![
+        (Position { x: 0.0, y: 0.0 }, Velocity { dx: 0.0, dy: 0.0 }),
+        (Position { x: 1.0, y: 1.0 }, Velocity { dx: 0.0, dy: 0.0 }),
+        (Position { x: 2.0, y: 2.0 }, Velocity { dx: 0.0, dy: 0.0 }),
+    ]);
 }

@@ -1,7 +1,7 @@
 extern crate enum_map;
 use crate::inventory::Inventory;
 use crate::core::stats;
-use crate::core::stats::Stats;
+use crate::core::stats::{Stats, Modifier};
 use crate::core::background::Background;
 use std::fmt; 
 
@@ -24,13 +24,28 @@ impl std::fmt::Display for Character {
     }
 }
 
-struct State {
-    active_modifiers: Vec<stats::Modifier>,
+pub struct Quirk {
+    name: String,
+    modifiers: Vec<Modifier>,
 }
 
-struct Quirk {
-    name: String,
-    modifiers: Vec<stats::Modifier>,
+impl Quirk {
+    pub fn default() -> Quirk {
+        let empty_mods_vec: Vec<Modifier> = Vec::new();
+        Quirk { 
+            name: String::from("Default Quirk"),
+            modifiers: empty_mods_vec,
+        }
+       
+    }
+
+    pub fn new(name: String) -> Quirk {
+        let modifiers: Vec<Modifier> = Vec::new();
+        Quirk { 
+            name: name,
+            modifiers: modifiers,
+        }
+    }
 }
 
 pub trait CanTalk {

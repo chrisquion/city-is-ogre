@@ -1,18 +1,20 @@
 use std::collections::HashMap;
 
-#[derive(Debug)]
+#[derive(Clone, Debug, PartialEq)]
 pub struct Stats { // there are 9 stats // idea: use enum to index into array rather than hashmap to save save on size and insertion time?
     base_stats_map: HashMap<StatType, Stat>,
     modifiers: Vec<Modifier>,
     ultimate_stats_map: HashMap<StatType, Stat>,
 }
-#[derive(Debug)]
+
+#[derive(Clone, Debug, PartialEq)]
 pub struct Stat {
     s_type: StatType,
     base_value: i32,
     current_value: i32,
 }
-#[derive(Debug)]
+
+#[derive(Clone, Debug, PartialEq)]
 pub struct Modifier {
     name: String,
     /*
@@ -22,7 +24,7 @@ pub struct Modifier {
     */
 }
 
-#[derive(Debug, PartialEq, Eq, Hash)]    
+#[derive(Debug, PartialEq, Eq, Hash, Clone)]    
 enum StatType {
     Finesse,
     Strength,
