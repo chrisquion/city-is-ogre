@@ -1,0 +1,9 @@
+Winnesota( // culture
+    name: "Winnesota",
+    modifiers: ["InfalliblyNice"]
+)
+
+SpaceRat( // heritage
+    name: "Space Rat",
+    modifiers: ["Frail", "IronStomach"]
+)

@@ -2,13 +2,13 @@ extern crate enum_map;
 use crate::inventory::Inventory;
 use crate::core::stats;
 use crate::core::stats::{Stats, Modifier};
-use crate::core::background::Background;
+use crate::core::background::{*};
+use serde::Deserialize;
 use std::fmt; 
 
 
 // use enum_map::{enum_map, Enum, EnumMap}; // idea: use this as the indexing-by-stattype tool 
-
-#[derive(Debug)]
+#[derive(Debug, Deserialize)]
 pub struct Character {
     pub alias: String,
     pub background: Background,
@@ -24,6 +24,7 @@ impl std::fmt::Display for Character {
     }
 }
 
+#[derive(Debug, Deserialize)]
 pub struct Quirk {
     name: String,
     modifiers: Vec<Modifier>,
@@ -58,19 +59,22 @@ impl CanTalk for Character {
     }
 }
 
-#[derive(Debug)]
+#[derive(Debug, Deserialize)]
 enum ModType {
     Physical,
     Mental,
 }
 
-pub fn will_into_existence(alias: String, background: Background, stats: Stats, inventory: Inventory, equipment: Inventory, active: bool) -> Character {
-    Character {
-        alias,
-        background,
-        stats,
-        inventory,
-        equipment,
-        active
+impl Character {
+    pub fn will_into_existence(alias: String, background: Background, stats: Stats, inventory: Inventory, equipment: Inventory) -> Character {
+        let mut active = false;
+        Character {
+            alias,
+            background,
+            stats,
+            inventory,
+            equipment,
+            active
+        }
     }
-}
+} 

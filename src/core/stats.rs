@@ -1,31 +1,10 @@
 use std::collections::HashMap;
+use strum::IntoEnumIterator;
+use strum_macros::EnumIter;
+use serde::Deserialize;
 
-#[derive(Clone, Debug, PartialEq)]
-pub struct Stats { // there are 9 stats // idea: use enum to index into array rather than hashmap to save save on size and insertion time?
-    base_stats_map: HashMap<StatType, Stat>,
-    modifiers: Vec<Modifier>,
-    ultimate_stats_map: HashMap<StatType, Stat>,
-}
-
-#[derive(Clone, Debug, PartialEq)]
-pub struct Stat {
-    s_type: StatType,
-    base_value: i32,
-    current_value: i32,
-}
-
-#[derive(Clone, Debug, PartialEq)]
-pub struct Modifier {
-    name: String,
-    /*
-    mod_type: ModType,
-    target: Character,
-    target_stats: Vec<Stat>
-    */
-}
-
-#[derive(Debug, PartialEq, Eq, Hash, Clone)]    
-enum StatType {
+#[derive(Debug, PartialEq, Eq, Hash, Clone, EnumIter, Deserialize)]    
+pub enum StatType {
     Finesse,
     Strength,
     Speed,
@@ -35,16 +14,48 @@ enum StatType {
     Intuition,
     Ruthlessness,
     Resolve,
+}    
+use StatType::{*};
+
+#[derive(Clone, Debug, PartialEq, Deserialize)]
+// there are 9 stats
+pub struct Stats(Stat, Stat, Stat, Stat, Stat, Stat, Stat, Stat, Stat); 
+
+#[derive(Clone, Debug, PartialEq, Deserialize)]
+pub struct Stat {
+    s_type: StatType,
+    base_value: i32, 
+    current_value: i32
 }
+
+impl Stat {
+    pub fn new(s_type: StatType) -> Stat {
+        let mut base_value = 0;
+        let mut current_value = 0;
+        Stat{
+            s_type,
+            base_value,
+            current_value,
+        }
+    }
+}
+
+#[derive(Clone, Debug, PartialEq, Deserialize)]
+pub struct Modifier {
+    name: String,
+    /*
+    mod_type: ModType,
+    target: Character,
+    target_stats: Vec<Stat>
+    */
+}
+
 impl Stats {
     pub fn new() -> Stats {
-        let base_stats_map = HashMap::new();
-        let ultimate_stats_map = HashMap::new();
-        let modifiers: Vec<Modifier> = Vec::new();
-        Stats {
-            base_stats_map,
-            modifiers,
-            ultimate_stats_map
-        }
+        Stats(
+            Stat::new(Finesse), Stat::new(Strength), Stat::new(Speed),
+            Stat::new(Instinct), Stat::new(Senses), Stat::new(Memory),
+            Stat::new(Intuition), Stat::new(Ruthlessness), Stat::new(Resolve)
+        )
     }
 }

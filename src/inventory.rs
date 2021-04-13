@@ -1,4 +1,6 @@
-#[derive(Debug)]
+use serde::Deserialize;
+
+#[derive(Debug, Deserialize)]
 pub struct Inventory {
     bags: Vec<Bag>,
 }
@@ -10,19 +12,21 @@ impl Inventory {
         }
     }
 }
-#[derive(Debug)]
+#[derive(Debug, Deserialize)]
 struct Bag {
     carrying_capacity: i32,
     weight_held: i32,
     items_currently_held: Vec<Item>
 }
-#[derive(Debug)]
+
+#[derive(Debug, Deserialize)]
 struct Item {
     name: String,
     categories: Vec<ItemClass>,
     uses: i32,
 }
-#[derive(Debug)]
+
+#[derive(Debug, Deserialize)]
 pub enum ItemClass {
     Equipment,
     Consumable,
