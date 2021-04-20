@@ -1,9 +1,9 @@
 use std::collections::HashMap;
 use strum::IntoEnumIterator;
 use strum_macros::EnumIter;
-use serde::Deserialize;
+use serde::{Deserialize, Serialize};
 
-#[derive(Debug, PartialEq, Eq, Hash, Clone, EnumIter, Deserialize)]    
+#[derive(Debug, PartialEq, Eq, Hash, Clone, EnumIter, Deserialize, Serialize)]    
 pub enum StatType {
     Finesse,
     Strength,
@@ -17,11 +17,11 @@ pub enum StatType {
 }    
 use StatType::{*};
 
-#[derive(Clone, Debug, PartialEq, Deserialize)]
+#[derive(Clone, Debug, PartialEq, Deserialize, Serialize)]
 // there are 9 stats
 pub struct Stats(Stat, Stat, Stat, Stat, Stat, Stat, Stat, Stat, Stat); 
 
-#[derive(Clone, Debug, PartialEq, Deserialize)]
+#[derive(Clone, Debug, PartialEq, Deserialize, Serialize)]
 pub struct Stat {
     s_type: StatType,
     base_value: i32, 
@@ -40,7 +40,7 @@ impl Stat {
     }
 }
 
-#[derive(Clone, Debug, PartialEq, Deserialize)]
+#[derive(Clone, Debug, PartialEq, Deserialize, Serialize)]
 pub struct Modifier {
     name: String,
     /*

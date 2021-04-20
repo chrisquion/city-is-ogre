@@ -3,12 +3,12 @@ use crate::inventory::Inventory;
 use crate::core::stats;
 use crate::core::stats::{Stats, Modifier};
 use crate::core::background::{*};
-use serde::Deserialize;
+use serde::{Deserialize, Serialize};
 use std::fmt; 
 
 
 // use enum_map::{enum_map, Enum, EnumMap}; // idea: use this as the indexing-by-stattype tool 
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Deserialize, Serialize)]
 pub struct Character {
     pub alias: String,
     pub background: Background,
@@ -24,7 +24,7 @@ impl std::fmt::Display for Character {
     }
 }
 
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Deserialize, Serialize)]
 pub struct Quirk {
     name: String,
     modifiers: Vec<Modifier>,
@@ -36,8 +36,7 @@ impl Quirk {
         Quirk { 
             name: String::from("Default Quirk"),
             modifiers: empty_mods_vec,
-        }
-       
+        } 
     }
 
     pub fn new(name: String) -> Quirk {
@@ -59,7 +58,7 @@ impl CanTalk for Character {
     }
 }
 
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Deserialize, Serialize)]
 enum ModType {
     Physical,
     Mental,

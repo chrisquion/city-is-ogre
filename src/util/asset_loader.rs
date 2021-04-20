@@ -1,11 +1,12 @@
 use std::io::prelude::*;
 use std::path::Path;
 use ron::de;
-use serde::Deserialize;
 use std::{collections::HashMap, fs::File};
+use std::io::BufReader;
+use crate::core::character::{*};
 
-pub fn test_read_character_db() -> String {
-    let character_db_path = Path::new("src/data/character_db.ron");
+pub fn test_read_character_db() -> Character {
+    let character_db_path = Path::new("generated_characters.ron");
     let display = character_db_path.display();
 
     // Open the path in read-only mode, returns `io::Result<File>`
@@ -13,21 +14,15 @@ pub fn test_read_character_db() -> String {
         Err(why) => panic!("couldn't open {}: {}", display, why),
         Ok(file) => file,
     };
-
-    let mut file_contents = String::new();
-    match file.read_to_string(&mut file_contents) {
-        Err(why) => panic!("couldn't read {}: {}", display, why),
-        Ok(_) => print!("{} contains:\n{}", display, file_contents),
-    }
-
-    let c = match de::from_str<Character>(&mut file_contents) {
+    let mut buf_reader = BufReader::new(file);
+    let mut contents = String::new();
+    buf_reader.read_to_string(&mut contents);
+    // println!("contents: {}", contents); 
+    let character_test: Character = match de::from_str(&contents) {
         Ok(x) => x,
-        Err(e) => {
-            println!("Failed to load Character: {}", e);
-
-            std::process::exit(1);
+        Err(why) => {
+            panic!("Error loading because {}", why);
         }
     };
-
-    c
+    character_test
 }

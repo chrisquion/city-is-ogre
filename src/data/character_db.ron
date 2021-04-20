@@ -1,33 +1,24 @@
-pedestrian_on_the_street(
+(
     alias: "Pedestrian",
-    background: pedestrian_background, 
-    stats: (),
-    inventory: (),
-    equipment: (),
+    background: (
+        culture: (
+            name: "Culture A",
+            modifiers: ["Dunce", "CityWalker"]
+        ),
+        heritage: (
+            name: "Heritage B",
+            modifiers: ["Resilient", "BigBoned"]
+        ),
+        timeline: 500
+    ), 
+    stats: Stats(),
+    inventory: [],
+    equipment: [],
     active: false
 )
-pedestrian_stats(
-    Finesse,
-    Strength,
-    Speed,
-    Instinct,
-    Senses,
-    Memory,
-    Intuition,
-    Ruthlessness,
-    Resolve,
-)
-pedestrian_background(
+Background(
     culture: culture_a,
     heritage: heritage_b,
     timeline: 500
-)
-culture_a(
-    name: "Culture A",
-    modifiers: ["Dunce", "CityWalker"]
-)
-heritage_b(
-    name: "Heritage B",
-    modifiers: ["Resilient", "BigBoned"]
 )
 

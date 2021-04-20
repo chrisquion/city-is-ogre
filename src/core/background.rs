@@ -1,16 +1,16 @@
-use serde::Deserialize;
+use serde::{Deserialize, Serialize};
 use super::stats::Modifier;
 use crate::core::character::Quirk;
 use std::fmt; 
 
 
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Deserialize, Serialize)]
 pub struct Background {
     culture: Heritage, // the culture the character grew up in
     heritage: Heritage, // the genetic makeup of the character
     timeline: i32, // the timeline the character is from
 }    
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Deserialize, Serialize)]
 pub struct Heritage {
     name: String,
     modifiers: Vec<Modifier>
