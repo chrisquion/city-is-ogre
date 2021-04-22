@@ -14,4 +14,8 @@ strum = "0.20"
 strum_macros = "0.20"
 serde = "1.0.125"
 ron = "0.6.4"
-sdl2 = "0.34.4"
+
+[dependencies.sdl2]
+version = "0.34.4"
+default-features = false
+features = ["ttf"]

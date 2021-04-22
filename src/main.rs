@@ -18,7 +18,7 @@ use legion::*;
 >>~~~*~*~~~>>=====*=====**>>What's going on<<**=====*=====<<~~~*~*~~~<<
     The universe is a mish-mash. It's always been a mish, but it 
     hasn't always been a mash. Once the mash was added, the universe 
-    started to spin, which terribly threw everyone in it for a tumble.
+    started to spin, which threw everyone in it for a terrible tumble.
     
 
 */
