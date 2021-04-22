@@ -1,0 +1,58 @@
+(
+    alias: "Cosmo the Space Rat D",
+    background: (
+        culture: (
+            name: "Winnesota",
+            modifiers: [],
+        ),
+        heritage: (
+            name: "SpaceRat",
+            modifiers: [],
+        ),
+        timeline: 0,
+    ),
+    stats: ((
+        s_type: Finesse,
+        base_value: 0,
+        current_value: 0,
+    ), (
+        s_type: Strength,
+        base_value: 0,
+        current_value: 0,
+    ), (
+        s_type: Speed,
+        base_value: 0,
+        current_value: 0,
+    ), (
+        s_type: Instinct,
+        base_value: 0,
+        current_value: 0,
+    ), (
+        s_type: Senses,
+        base_value: 0,
+        current_value: 0,
+    ), (
+        s_type: Memory,
+        base_value: 0,
+        current_value: 0,
+    ), (
+        s_type: Intuition,
+        base_value: 0,
+        current_value: 0,
+    ), (
+        s_type: Ruthlessness,
+        base_value: 0,
+        current_value: 0,
+    ), (
+        s_type: Resolve,
+        base_value: 0,
+        current_value: 0,
+    )),
+    inventory: (
+        bags: [],
+    ),
+    equipment: (
+        bags: [],
+    ),
+    active: false,
+)

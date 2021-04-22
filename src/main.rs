@@ -1,4 +1,5 @@
 mod core;
+mod renderer;
 mod inventory;
 mod util;
 
@@ -26,6 +27,7 @@ fn main() {
     let mut world = World::default();
     let mut resources = Resources::default();
     let mut read_spacetime_query = <(Entity, Read<Character>, Read<Position>, Read<Velocity>)>::query();
+    let mut write_a_mash_query = <(Entity, Write<Character>, Write<Position>, Write<Velocity>)>::query();
     let mut command_buffer = CommandBuffer::new(&world);
     let mut time = Time::let_there_be_time();
     let mut resources = Resources::default();
@@ -59,8 +61,7 @@ fn main() {
         )
     );
 
-    
-    let greeting_system = SystemBuilder::new("GreetAll")
+    let greeting_sys = SystemBuilder::new("GreetAll")
     .with_query(read_spacetime_query)
     .build(|command_buffer, world, time, query| {
         for (entity, character, pos, vel) in query.iter_mut(world) {
@@ -68,8 +69,17 @@ fn main() {
         }
     });
 
+    let title_menu_screen_sys = SystemBuilder::new("TitleMenu")
+    .with_query(write_a_mash_query)
+    .build(|command_buffer, world, time, query| {
+        
+    });
+
+    renderer::engine::look_into_the_mishmash();
+
     let mut schedule = Schedule::builder()
-    .add_system(greeting_system)
+    .add_system(greeting_sys)
+    .add_system(title_menu_screen_sys)
     .build();
 
     schedule.execute(&mut world, &mut resources);
