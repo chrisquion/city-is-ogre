@@ -18,18 +18,15 @@ impl MenuConfig {
     }
 }
 
-pub struct MenuCursor<'m> {
-    pub current_selections: &'m [MenuItem], 
+pub struct MenuCursor{
+    pub current_selections: Vec<usize>, 
     pub pointing_at_index: usize,
 }
 
-impl MenuCursor <'m>{
-    // `m should be alive as long as the menu is open? 
-    // or as the game is running? 
-    // or as long as its parent is in game?
-    pub fn new(items: &'m Vec<MenuItem>) -> MenuCursor {
+impl MenuCursor {
+    pub fn new() -> MenuCursor {
         MenuCursor { 
-            current_selections: &[items[0]],
+            current_selections: Vec::new(),
             pointing_at_index: 0,
         }
     } 
@@ -37,7 +34,7 @@ impl MenuCursor <'m>{
 
 impl Menu {
     pub fn new(items: Vec<MenuItem>, config: MenuConfig) -> Menu {
-        let cursor = MenuCursor::new(items);
+        let cursor = MenuCursor::new();
         Menu {
             items, 
             config,
@@ -54,11 +51,11 @@ impl Menu {
     }
 
     pub fn default_title() -> Menu {
-        let items: Vec<MenuItem> = Vec::new();
+        let mut items: Vec<MenuItem> = Vec::new();
         items.push(MenuItem::new(String::from("START"), Menu::title_menu_start));
         items.push(MenuItem::new(String::from("QUIT"), Menu::title_menu_start));
-        let config: MenuConfig = MenuConfig::new();
-        Menu::new(items, )
+        let config: MenuConfig = MenuConfig::new(1, false);
+        Menu::new(items, config)
     }
 
     fn cursor_shift_down() -> Result<(), String> {
@@ -74,7 +71,17 @@ impl Menu {
     }
 }
 
-struct MenuItem {
+#[derive(Clone)]
+pub struct MenuItem {
     text: String,
     action: fn() -> Result<(), String>,
+}
+
+impl MenuItem {
+    pub fn new(text: String, action: fn() -> Result<(), String>) -> MenuItem {
+        MenuItem { 
+            text,
+            action
+        }
+    }
 }
