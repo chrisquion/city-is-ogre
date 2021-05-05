@@ -9,6 +9,7 @@ use crate::core::stats::{*};
 use crate::core::character::{Character, Quirk};
 use crate::core::spacetime::{*};
 use crate::core::character::CanTalk;
+use crate::core::menu::{*};
 use legion::systems::CommandBuffer;
 use util::{*};
 
@@ -22,6 +23,7 @@ use legion::*;
     
 
 */
+
 fn main() {
     // get our plates, and utensils, and prepare for the mish-mash
     let mut world = World::default();
@@ -47,6 +49,8 @@ fn main() {
     let equip = Inventory::new();
     let characters: Vec<Character> = Vec::new();
 
+    let title_menu: Menu = Menu::default_title();
+
     // push a component tuple into the world to create an entity
     let cosmo1: Entity = world.push(
         (Character::will_into_existence(alias, bg, stats, inv, equip), 
@@ -71,9 +75,7 @@ fn main() {
 
     let title_menu_screen_sys = SystemBuilder::new("TitleMenu")
     .with_query(write_a_mash_query)
-    .build(|command_buffer, world, time, query| {
-        
-    });
+    .build(|command_buffer, world, time, query| {});
 
     renderer::engine::look_into_the_mishmash();
 

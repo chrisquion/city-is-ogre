@@ -49,12 +49,14 @@ impl Quirk {
 }
 
 pub trait CanTalk {
-    fn say_hi(&self);
+    fn say_hi(&self) -> String;
 }
 
 impl CanTalk for Character {
-    fn say_hi(&self) {
+    fn say_hi(&self) -> String {
+        let greeting = format!("Hi, I'm {} from {}", self.alias, self.background);
         println!("Hi, I'm {} from {}", self.alias, self.background);
+        greeting
     }
 }
 

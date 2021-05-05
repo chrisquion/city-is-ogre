@@ -31,6 +31,7 @@ fn point_eye_of_god(&world) -> Camera{
 */
 
 pub fn look_into_the_mishmash() {
+    // Open the Title Menu
     println!("linked sdl2_ttf: {}", sdl2::ttf::get_linked_version());
     let ttf_context = match sdl2::ttf::init().map_err(|e| e.to_string()) {
         Ok(x) => x,
@@ -54,7 +55,7 @@ pub fn look_into_the_mishmash() {
     let texture_creator = canvas.texture_creator();
 
     // Load a font
-    let mut font = match ttf_context.load_font(font_path, 64 ) {
+    let mut font = match ttf_context.load_font(font_path, 64) {
         Ok(x) => x,
         Err(why) => panic!("failure loading text context because: {}", why)
     };
@@ -88,7 +89,6 @@ pub fn look_into_the_mishmash() {
         SCREEN_HEIGHT - padding,
     );
     println!("target: {:?}", target);
-
     canvas.present();
 
     let mut event_pump = sdl_context.event_pump().unwrap();
@@ -99,6 +99,9 @@ pub fn look_into_the_mishmash() {
                 Event::Quit {..} |
                 Event::KeyDown { keycode: Some(Keycode::Escape), .. } => {
                     break 'running
+                },
+                Event::KeyDown { keycode: Some(Keycode::Down), .. } => {
+                    
                 },
                 _ => {}
             }
@@ -145,6 +148,5 @@ fn get_centered_rect(rect_width: u32, rect_height: u32, cons_width: u32, cons_he
 
 pub fn write_something_to_the_screen() -> Result<(), String> {
     println!("linked sdl2_ttf: {}", sdl2::ttf::get_linked_version());
-
     Ok(())
 }
